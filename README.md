@@ -43,53 +43,76 @@ classDiagram
         +Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured)
     }
 
-    %% Abstract Base Class
-    class Piece {
-        #bool isWhite
-        #bool hasMoved
-        +Piece(bool isWhite)
-        +virtual ~Piece()
-        +bool getIsWhite() const
-        +bool getHasMoved() const
-        +void setHasMoved(bool moved)
-        +virtual vector~Move~ getValidMoves(const Board& board, int row, int col) const = 0
-        +virtual char getSymbol() const = 0
-    }
+class PieceType {
+<<enumeration>>
+King
+Queen
+Rook
+Bishop
+Knight
+Pawn
+}
 
-    %% Derived Concrete Pieces
-    class Pawn {
-        +getValidMoves(const Board& board, int row, int col) const vector~Move~
-        +getSymbol() const char
-    }
-    class Knight {
-        +getValidMoves(const Board& board, int row, int col) const vector~Move~
-        +getSymbol() const char
-    }
-    class Bishop {
-        +getValidMoves(const Board& board, int row, int col) const vector~Move~
-        +getSymbol() const char
-    }
-    class Rook {
-        +getValidMoves(const Board& board, int row, int col) const vector~Move~
-        +getSymbol() const char
-    }
-    class Queen {
-        +getValidMoves(const Board& board, int row, int col) const vector~Move~
-        +getSymbol() const char
-    }
-    class King {
-        +getValidMoves(const Board& board, int row, int col) const vector~Move~
-        +getSymbol() const char
-    }
+class Piece {
+#bool isWhite
+#bool hasMoved
++Piece(bool isWhite)
++virtual ~Piece()
++bool getIsWhite() const
++bool getHasMoved() const
++void setHasMoved(bool moved)
++virtual PieceType getType() const = 0
++virtual vector~Move~ getValidMoves(const Board& board, int row, int col) const = 0
++virtual char getSymbol() const = 0
+}
+
+class Pawn {
++getType() const PieceType
++getValidMoves(const Board& board, int row, int col) const vector~Move~
++getSymbol() const char
+}
+
+class Knight {
++getType() const PieceType
++getValidMoves(const Board& board, int row, int col) const vector~Move~
++getSymbol() const char
+}
+
+class Bishop {
++getType() const PieceType
++getValidMoves(const Board& board, int row, int col) const vector~Move~
++getSymbol() const char
+}
+
+class Rook {
++getType() const PieceType
++getValidMoves(const Board& board, int row, int col) const vector~Move~
++getSymbol() const char
+}
+
+class Queen {
++getType() const PieceType
++getValidMoves(const Board& board, int row, int col) const vector~Move~
++getSymbol() const char
+}
+
+class King {
++getType() const PieceType
++getValidMoves(const Board& board, int row, int col) const vector~Move~
++getSymbol() const char
+}
+
+Piece --> PieceType : returns
+Piece <|-- Pawn
+Piece <|-- Knight
+Piece <|-- Bishop
+Piece <|-- Rook
+Piece <|-- Queen
+Piece <|-- King
 
     %% Relationships and Cardinalities
     Game "1" *-- "1" Board : contains
     Game "1" *-- "many" Move : tracks history
     Board "1" o-- "0..32" Piece : dynamically stores
-    Piece <|-- Pawn : inherits
-    Piece <|-- Knight : inherits
-    Piece <|-- Bishop : inherits
-    Piece <|-- Rook : inherits
-    Piece <|-- Queen : inherits
-    Piece <|-- King : inherits
+    
 ```
