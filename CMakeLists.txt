@@ -24,4 +24,6 @@ add_executable(cpp_chess
         Queen.cpp
         Queen.h
         King.cpp
-        King.h)
+        King.h
+        PieceType.h
+        Piece.cpp)
