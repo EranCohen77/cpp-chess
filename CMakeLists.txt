@@ -8,4 +8,20 @@ include_directories(.)
 add_executable(cpp_chess
         Move.cpp
         Move.h
-        Move.h)
+        Game.cpp
+        Game.h
+        Board.cpp
+        Board.h
+        Piece.h
+        Pawn.cpp
+        Pawn.h
+        Bishop.cpp
+        Bishop.h
+        Knight.cpp
+        Knight.h
+        Rook.cpp
+        Rook.h
+        Queen.cpp
+        Queen.h
+        King.cpp
+        King.h)
