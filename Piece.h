@@ -25,8 +25,12 @@ public:
     void setHasMoved(bool moved);
 
     virtual PieceType getType() const = 0;
-    virtual std::vector<Move> getValidMoves(const Board& board, int row, int col) const = 0;
     virtual char getSymbol() const = 0;
+    virtual std::vector<Move> getValidMoves(
+        const Board& board,
+        int row,
+        int col)
+    const = 0;
 };
 
 

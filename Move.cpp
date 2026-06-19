@@ -10,3 +10,8 @@ endRow(eRow), endCol(eCol),
 movedPiece(moved), capturedPiece(captured),
 isCastling(false), isEnPassant(false), isPromotion(false){
 }
+
+std::string Move::toAlgebricNotation() const {
+    //temporarily!
+    return "";
+}

@@ -1,13 +1,21 @@
 //
 // Created by eranc on 6/19/2026.
 //
-#pragma once
-
 #ifndef CPP_CHESS_BISHOP_H
 #define CPP_CHESS_BISHOP_H
 #include <Piece.h>
 
 class Bishop : public Piece {
+public:
+    explicit Bishop(bool isWhite);
+
+    PieceType getType() const override;
+    char getSymbol() const override;
+    std::vector<Move> getValidMoves(
+        const Board &board,
+        int row,
+        int col
+        ) const override;
 };
 
 

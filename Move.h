@@ -5,6 +5,7 @@
 
 #ifndef CPP_CHESS_MOVE_H
 #define CPP_CHESS_MOVE_H
+#include <string>
 
 class Piece;
 
@@ -23,6 +24,8 @@ public:
     bool isPromotion;
 
     Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured);
+
+    std::string toAlgebricNotation() const;
 };
 
 

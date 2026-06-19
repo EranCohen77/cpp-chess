@@ -26,4 +26,5 @@ add_executable(cpp_chess
         King.cpp
         King.h
         PieceType.h
-        Piece.cpp)
+        Piece.cpp
+        main.cpp)
