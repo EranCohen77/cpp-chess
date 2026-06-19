@@ -1,11 +1,11 @@
 ```mermaid
 classDiagram
+    direction LR
+
     %% Core Controller
     class Game {
         -Board board
-        -Player* playerWhite
-        -Player* playerBlack
-        -Player* currentTurn
+        -bool isWhiteTurn
         -vector~Move~ moveHistory
         +Game()
         +~Game()
@@ -29,26 +29,18 @@ classDiagram
         +bool isCheckmate(bool isWhite) const
     }
 
-    %% Complex Move Descriptor
+    %% Complex Move Descriptor (The "Receipt")
     class Move {
         +int startRow
         +int startCol
         +int endRow
         +int endCol
+        +Piece* movedPiece
         +Piece* capturedPiece
         +bool isCastling
         +bool isEnPassant
         +bool isPromotion
-        +Move(int sRow, int sCol, int eRow, int eCol)
-    }
-
-    %% Player Meta-data
-    class Player {
-        -string name
-        -bool isWhite
-        +Player(string name, bool isWhite)
-        +bool getIsWhite() const
-        +string getName() const
+        +Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured)
     }
 
     %% Abstract Base Class
@@ -90,9 +82,8 @@ classDiagram
         +getSymbol() const char
     }
 
-    %% Relationships and Cardnalities
+    %% Relationships and Cardinalities
     Game "1" *-- "1" Board : contains
-    Game "1" *-- "2" Player : manages
     Game "1" *-- "many" Move : tracks history
     Board "1" o-- "0..32" Piece : dynamically stores
     Piece <|-- Pawn : inherits
@@ -101,5 +92,4 @@ classDiagram
     Piece <|-- Rook : inherits
     Piece <|-- Queen : inherits
     Piece <|-- King : inherits
-```
 ```
