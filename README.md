@@ -22,11 +22,11 @@ classDiagram
         +~Board()
         +Piece* getPiece(int row, int col) const
         +void setPiece(int row, int col, Piece* piece)
-        +bool executeMove(const Move& move)
+        +void executeMove(const Move& move)
         +void undoMove(const Move& move)
-        +bool isPositionUnderAttack(int row, int col, bool byWhite) const
-        +bool isInCheck(bool isWhite) const
-        +bool isCheckmate(bool isWhite) const
+        +bool isPositionUnderAttack(int row, int col, bool attackerIsWhite) const
+        +bool isInCheck(bool attackerIsWhite) const
+        +bool isCheckMate(bool attackerIsWhite)
     }
 
     %% Complex Move Descriptor (The "Receipt")
@@ -37,10 +37,13 @@ classDiagram
         +int endCol
         +Piece* movedPiece
         +Piece* capturedPiece
+        +bool movedPieceHadMoved
+        +bool castlingRookHadMoved
         +bool isCastling
         +bool isEnPassant
         +bool isPromotion
-        +Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured)
+        +PieceType promotionType
+        +Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured, PieceType promotionType)
     }
 
 class PieceType {
@@ -103,6 +106,8 @@ class King {
 }
 
 Piece --> PieceType : returns
+Move --> PieceType : promotion choice
+Move --> Piece : references moved/captured pieces
 Piece <|-- Pawn
 Piece <|-- Knight
 Piece <|-- Bishop
