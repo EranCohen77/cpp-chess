@@ -6,6 +6,7 @@
 #ifndef CPP_CHESS_MOVE_H
 #define CPP_CHESS_MOVE_H
 #include <string>
+#include "PieceType.h"
 
 class Piece;
 
@@ -18,12 +19,17 @@ public:
 
     Piece* movedPiece;
     Piece* capturedPiece;
+    bool movedPieceHadMoved;
+    mutable bool castlingRookHadMoved;
 
     bool isCastling;
     bool isEnPassant;
     bool isPromotion;
+    PieceType promotionType;
 
-    Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured);
+    Move(int sRow, int sCol, int eRow, int eCol,
+        Piece* moved, Piece* captured,
+        PieceType promotionType = PieceType::Queen);
 
     std::string toAlgebricNotation() const;
 };

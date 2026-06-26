@@ -1,7 +1,6 @@
 //
 // Created by eranc on 6/19/2026.
 //
-#pragma once
 #include <iostream>
 
 #include "Bishop.h"

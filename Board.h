@@ -4,9 +4,24 @@
 
 #ifndef CPP_CHESS_BOARD_H
 #define CPP_CHESS_BOARD_H
-
+#include "Piece.h"
 
 class Board {
+private:
+    Piece* grid[8][8];
+public:
+    Board();
+    ~Board();
+
+    Piece* getPiece(int row, int col) const;
+    void setPiece(int row, int col, Piece* piece);
+
+    void executeMove(const Move& move);
+    void undoMove(const Move& move);
+
+    bool isPositionUnderAttack(int row, int col, bool attackerIsWhite) const;
+    bool isInCheck(bool attackerIsWhite) const;
+    bool isCheckMate(bool attackerIsWhite);
 };
 
 

@@ -3,12 +3,18 @@
 //
 
 #include "Move.h"
+#include "Piece.h"
 
-Move::Move(int sRow, int sCol, int eRow, int eCol, Piece *moved, Piece *captured):
+Move::Move(int sRow, int sCol, int eRow, int eCol,
+    Piece *moved, Piece *captured, PieceType promotionType):
 startRow(sRow), startCol(sCol),
 endRow(eRow), endCol(eCol),
 movedPiece(moved), capturedPiece(captured),
-isCastling(false), isEnPassant(false), isPromotion(false){
+movedPieceHadMoved(moved != nullptr && moved->getHasMoved()),
+castlingRookHadMoved(false),
+isCastling(false), isEnPassant(false), isPromotion(false),
+promotionType(promotionType){
+    //TODO implement special moves logic.
 }
 
 std::string Move::toAlgebricNotation() const {
