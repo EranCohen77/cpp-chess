@@ -6,6 +6,16 @@
 #include <Piece.h>
 
 class Pawn : public Piece {
+private:
+    void addPromotionMoves(
+        std::vector<Move>& moves,
+        int startRow,
+        int startCol,
+        int endRow,
+        int endCol,
+        Piece* movedPiece,
+        Piece* capturedPiece
+    ) const;
 public:
     explicit Pawn(bool isWhite);
 

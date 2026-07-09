@@ -41,10 +41,23 @@ Piece* Board::getPiece(int row, int col) const {
 void Board::setPiece(int row, int col, Piece* piece) {
     grid[row][col] = piece;
 }
+const Move* Board::getLastMove() const {
+    if (!lastMove.has_value()) {
+        return nullptr;
+    }
+
+    return &lastMove.value();
+}
+void Board::setLastMove(const Move& move) {
+    lastMove = move;
+}
+void Board::clearLastMove() {
+    lastMove.reset();
+}
 void Board::executeMove(const Move &move) {
     //assume move is valid.
     if (move.isCastling) {
-        bool kingSide = move.endCol > move.startCol;
+        const bool kingSide = move.endCol > move.startCol;
         Piece* rook = kingSide ? grid[move.startRow][7] : grid[move.startRow][0];
         move.castlingRookHadMoved = rook->getHasMoved();
 
@@ -77,6 +90,7 @@ void Board::executeMove(const Move &move) {
         grid[move.startRow][move.startCol] = nullptr;
         move.movedPiece->setHasMoved(true);
     }
+    setLastMove(move);
 }
 void Board::undoMove(const Move &move) {
     //assume move is valid.
@@ -114,6 +128,7 @@ void Board::undoMove(const Move &move) {
         grid[move.endRow][move.endCol] = move.capturedPiece;
         move.movedPiece->setHasMoved(move.movedPieceHadMoved);
     }
+    clearLastMove();
 }
 bool Board::isPositionUnderAttack(int row, int col, bool attackerIsWhite) const {
     for (int r = 0; r < 8; r++) {
@@ -168,5 +183,3 @@ bool Board::isCheckMate(bool attackerIsWhite) {
     }
     return true;
 }
-
-
