@@ -18,10 +18,14 @@ classDiagram
     %% Board Management
     class Board {
         -Piece* grid[8][8]
+        -optional~Move~ lastMove
         +Board()
         +~Board()
         +Piece* getPiece(int row, int col) const
         +void setPiece(int row, int col, Piece* piece)
+        +const Move* getLastMove() const
+        +void setLastMove(const Move& move)
+        +void clearLastMove()
         +void executeMove(const Move& move)
         +void undoMove(const Move& move)
         +bool isPositionUnderAttack(int row, int col, bool attackerIsWhite) const
@@ -44,6 +48,7 @@ classDiagram
         +bool isPromotion
         +PieceType promotionType
         +Move(int sRow, int sCol, int eRow, int eCol, Piece* moved, Piece* captured, PieceType promotionType)
+        +string toAlgebricNotation() const
     }
 
 class PieceType {
@@ -70,36 +75,43 @@ class Piece {
 }
 
 class Pawn {
++Pawn(bool isWhite)
+-void addPromotionMoves(vector~Move~& moves, int startRow, int startCol, int endRow, int endCol, Piece* movedPiece, Piece* capturedPiece) const
 +getType() const PieceType
 +getValidMoves(const Board& board, int row, int col) const vector~Move~
 +getSymbol() const char
 }
 
 class Knight {
++Knight(bool isWhite)
 +getType() const PieceType
 +getValidMoves(const Board& board, int row, int col) const vector~Move~
 +getSymbol() const char
 }
 
 class Bishop {
++Bishop(bool isWhite)
 +getType() const PieceType
 +getValidMoves(const Board& board, int row, int col) const vector~Move~
 +getSymbol() const char
 }
 
 class Rook {
++Rook(bool isWhite)
 +getType() const PieceType
 +getValidMoves(const Board& board, int row, int col) const vector~Move~
 +getSymbol() const char
 }
 
 class Queen {
++Queen(bool isWhite)
 +getType() const PieceType
 +getValidMoves(const Board& board, int row, int col) const vector~Move~
 +getSymbol() const char
 }
 
 class King {
++King(bool isWhite)
 +getType() const PieceType
 +getValidMoves(const Board& board, int row, int col) const vector~Move~
 +getSymbol() const char
