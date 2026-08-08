@@ -55,6 +55,7 @@ std::vector<Move> King::getValidMoves(const Board &board, int row, int col) cons
         //short castling check
         if (short_castling_rook != nullptr &&
             short_castling_rook->getType() == PieceType::Rook &&
+            short_castling_rook->getIsWhite() == isWhite &&
             !short_castling_rook->getHasMoved() &&
             board.getPiece(row, col + 1) == nullptr &&
             board.getPiece(row, col + 2) == nullptr &&
@@ -72,6 +73,7 @@ std::vector<Move> King::getValidMoves(const Board &board, int row, int col) cons
         //long castling check
         if (long_castling_rook != nullptr &&
             long_castling_rook->getType() == PieceType::Rook&&
+            long_castling_rook->getIsWhite() == isWhite &&
             !long_castling_rook->getHasMoved() &&
             board.getPiece(row, col - 1) == nullptr &&
             board.getPiece(row, col - 2) == nullptr &&

@@ -4,7 +4,9 @@
 
 #include "Board.h"
 #include "Bishop.h"
+#include "King.h"
 #include "Knight.h"
+#include "Pawn.h"
 #include "Queen.h"
 #include "Rook.h"
 
@@ -136,6 +138,17 @@ bool Board::isPositionUnderAttack(int row, int col, bool attackerIsWhite) const 
             Piece* p = grid[r][c];
             if (p == nullptr) continue;
             if (p->getIsWhite() != attackerIsWhite) continue;
+
+            if (p->getType() == PieceType::Pawn) {
+                const int direction = attackerIsWhite ? -1 : 1;
+                if (r + direction == row && (c - 1 == col || c + 1 == col)) return true;
+                continue;
+            }
+            if (p->getType() == PieceType::King) {
+                if ((r != row || c != col) &&
+                    std::abs(r - row) <= 1 && std::abs(c - col) <= 1) return true;
+                continue;
+            }
 
             std::vector<Move> moves = p->getValidMoves(*this, r, c);
             for (const Move& move : moves) {

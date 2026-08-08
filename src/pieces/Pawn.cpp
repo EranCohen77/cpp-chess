@@ -40,11 +40,11 @@ void Pawn::addPromotionMoves(
 }
 std::vector<Move> Pawn::getValidMoves(const Board &board, int row, int col) const {
     std::vector<Move> moves;
-    int direction = isWhite? 1 : -1;
+    int direction = isWhite ? -1 : 1;
     int targetRow = row + direction;
     int targetCol = col;
     bool blocked = false;
-    bool isPromotionRow = (isWhite && row == 6) || (!isWhite && row == 1);
+    bool isPromotionRow = (isWhite && row == 1) || (!isWhite && row == 6);
     Piece* movedPiece = board.getPiece(row, col);
 
     //check normal advancement moves
@@ -95,7 +95,7 @@ std::vector<Move> Pawn::getValidMoves(const Board &board, int row, int col) cons
     }
 
     //check en passant
-    if ((isWhite && row == 4) || (!isWhite && row == 3)) {
+    if ((isWhite && row == 3) || (!isWhite && row == 4)) {
         const Move* lastMove = board.getLastMove();
         if (lastMove != nullptr
             && lastMove->endRow == row

@@ -13,11 +13,21 @@ movedPiece(moved), capturedPiece(captured),
 movedPieceHadMoved(moved != nullptr && moved->getHasMoved()),
 castlingRookHadMoved(false),
 isCastling(false), isEnPassant(false), isPromotion(false),
-promotionType(promotionType){
-    //TODO implement special moves logic.
-}
+promotionType(promotionType){}
 
 std::string Move::toAlgebricNotation() const {
-    //temporarily!
-    return "";
+    if (isCastling) {
+        return endCol > startCol? "O-O" : "O-O-O";
+    }
+    std::string res = "";
+    if (movedPiece->getType() != PieceType::Pawn) {
+        res += movedPiece->getSymbol();
+    }
+    if (capturedPiece != nullptr) {
+        res += 'x';
+    }
+    res += (endCol + 'a');
+    res += (endRow - 1);
+    return res;
+    //TODO finish implementation.
 }

@@ -7,12 +7,15 @@ classDiagram
         -Board board
         -bool isWhiteTurn
         -vector~Move~ moveHistory
+        -vector~Piece*~ removedPieces
+        -bool handlePlayerInput()
+        -void switchTurn()
+        -void drawBoard(const string& message) const
+        -bool hasLegalMove(bool whiteSide)
         +Game()
         +~Game()
         +void initializeNewGame()
         +void run()
-        -bool handlePlayerInput()
-        -void switchTurn()
     }
 
     %% Board Management
